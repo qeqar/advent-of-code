@@ -70,11 +70,12 @@ def main():
     last_max = 0
     for guard in sleep_time:
         max = 0
-        for num_minute in sleep_time[guard].keys():
+        for num_minute in sleep_time[guard].values():
             max += num_minute
         if max > last_max:
             last_max = max
             max_sleep_time = guard
+        #print(guard, max, max_sleep_time, last_max)
 
     print(max_sleep_time)
 
