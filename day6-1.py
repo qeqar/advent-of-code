@@ -18,6 +18,8 @@ for cordinate in content:
     if int(y) > max_y:
         max_y = int(y)
 
+max_x += 1
+max_y += 1
 print(max_x)
 print(max_y)
 print(cordinates)
@@ -44,9 +46,7 @@ for box_x in range(0, max_x):
         #print("but is double " + str(double))
         if not double:
             calc_cordinates[nearest_cor]["area"] += 1
-            if box_x == 1:
-                calc_cordinates[nearest_cor]["edge"] = True
-            if box_y == max_y:
+            if box_x == 0 or box_x == max_y or box_y == max_y or box_y == 0:
                 calc_cordinates[nearest_cor]["edge"] = True
 
 print(calc_cordinates)
