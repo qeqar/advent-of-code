@@ -11,7 +11,7 @@ for mass in masses:
     fuel1 += f
     fuel2 += f
     while f > 0:
-        f = math.floor(f / 3) - 2
+        f = f // 3 - 2
         if f > 0:
             fuel2 += f
 
