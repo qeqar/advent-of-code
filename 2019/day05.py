@@ -20,7 +20,7 @@ with open('inputs/day05.txt') as f:
 
 codes = list(map(int, instruction.split(",")))
 i = 0
-system_id = 5
+system_id = 1
 
 while i < len(codes):
     if str(codes[i])[-1] == '9':

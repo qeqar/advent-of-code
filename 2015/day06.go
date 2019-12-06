@@ -34,7 +34,7 @@ func getPoint(point string) [2]int {
 }
 
 func main() {
-	file, err := os.Open("inputs/day06.txt")
+	file, err := os.Open("inputs/day06.txt.txt")
 	if err != nil {
 		panic(err)
 	}
