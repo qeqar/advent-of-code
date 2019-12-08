@@ -26,6 +26,6 @@ for node in graph.nodes:
 
 
 
-print(total_orbits)
+print("total orbits: " + str(total_orbits))
 networkx.draw(graph)
 plt.show()
