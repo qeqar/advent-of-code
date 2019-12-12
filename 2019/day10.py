@@ -3,7 +3,10 @@ import math
 
 
 def check_distance(see, asteroid, distance, miss):
-    if not see or see[1] > distance:
+    if not see:
+        return (asteroid, distance)
+    elif see[1] > distance:
+        miss.append(see[0])
         return (asteroid, distance)
     else:
         miss.append(asteroid)
@@ -34,11 +37,9 @@ def check_angle(see, asteroid, angle, distance, miss):
         see.append(new_angle)
     elif len(same_angle) == 1:
         if distance < same_angle[0]['distance']:
-            print("replace")
-            print(len(see))
             see.append(new_angle)
             see.remove(same_angle[0])
-            print(len(see))
+            miss.append(same_angle[0]['coordinate'])
         else:
             miss.append(asteroid)
     else:
@@ -66,7 +67,7 @@ for y in range(len(lines)):
 num_of_asteroid = len(asteroids_coordinates)
 
 for asteroid in asteroids_coordinates:
-    print(asteroid)
+    #print(asteroid)
     same_x_y_plus = ()
     same_x_y_minus = ()
     same_y_x_plus = ()
@@ -105,10 +106,6 @@ for asteroid in asteroids_coordinates:
     assert len(same_y_x_plus) < 3, same_y_x_plus
     assert len(same_y_x_minus) < 3, same_y_x_minus
 
-    print("xy_plus: " + str(len(xy_plus)))
-    print("xy_minus: " + str(len(xy_minus)))
-    print("x_plus_y_minus: " + str(len(x_plus_y_minus)))
-    print("x_minus_y_plus: " + str(len(x_minus_y_plus)))
     run_num_asteroids = len(xy_plus) + len(xy_minus) + len(x_plus_y_minus) + len(x_minus_y_plus)
     if same_x_y_plus:
         run_num_asteroids += 1
@@ -119,9 +116,8 @@ for asteroid in asteroids_coordinates:
     if same_y_x_minus:
         run_num_asteroids += 1
 
-    print(run_num_asteroids, len(miss), num_of_asteroid)
-    #assert len(miss) + run_num_asteroids + 1 == num_of_asteroid,\
-    #    str(run_num_asteroids) + " " + str(len(miss)) + " " + str(num_of_asteroid)
+    assert len(miss) + run_num_asteroids + 1 == num_of_asteroid,\
+        str(run_num_asteroids) + " " + str(len(miss)) + " " + str(num_of_asteroid)
 
     if run_num_asteroids > max_asteroids:
         max_asteroids = run_num_asteroids
@@ -129,4 +125,3 @@ for asteroid in asteroids_coordinates:
 
 print("max number of asteroids: " + str(max_asteroids))
 print("at coordinate: " + str(max_asteroid_coordinate))
-
