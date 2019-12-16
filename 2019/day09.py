@@ -7,11 +7,12 @@ if __name__ == "__main__":
         instruction = f.read()
     codes = list(map(int, instruction.split(",")))
 
+    part = 2
     inQueue = queue.Queue()
-    inQueue.put(1)
+    inQueue.put(part)
     outQueue = queue.Queue()
 
     computer = intComp.Comp(codes.copy(), inQueue, outQueue)
     computer.start()
     computer.join()
-    print("part1: " + str(outQueue.get_nowait()))
+    print("solution part: " + str(part) + ": " + str(outQueue.get_nowait()))
