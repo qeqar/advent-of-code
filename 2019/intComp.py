@@ -3,9 +3,6 @@ import threading
 import queue
 
 
-
-
-
 class Comp(threading.Thread):
     indicator = 0
     output = 0
@@ -29,21 +26,23 @@ class Comp(threading.Thread):
             exit(1)
         return int(str(self.codes[self.indicator])[p]) if len(str(self.codes[self.indicator])) > param + 1 else 0
 
-    def get_value(self, param):
+    def get_value(self, param, write=False):
         mode = self.parameter_mode(param)
         if mode == 0:  # position mode
             index = self.codes[self.indicator + param]
         elif mode == 1:  # immediate mode
             index = self.indicator + param
         elif mode == 2:  # relative mode
-            index = self.codes[self.indicator + param] + self.relative_base
+            index = self.relative_base + self.codes[self.indicator + param]
         else:
             print("mode " + str(mode) + " not supported")
             exit(1)
+        if write:
+            return index
         if index >= len(self.codes):
             return 0
         return self.codes[index]
-    
+
     def add_value(self, position, value):
         if position >= len(self.codes):
             for _ in range(len(self.codes), position + 1):
@@ -57,13 +56,13 @@ class Comp(threading.Thread):
                 #print("reached 99 at " + str(self.indicator) + "\n")
                 return self.output
             elif opcode == '01':
-                self.add_value(self.codes[self.indicator + 3], self.get_value(1) + self.get_value(2))
+                self.add_value(self.get_value(3, True), self.get_value(1) + self.get_value(2))
                 self.indicator += 4
             elif opcode == '02':
-                self.add_value(self.codes[self.indicator + 3], self.get_value(1) * self.get_value(2))
+                self.add_value(self.get_value(3, True), self.get_value(1) * self.get_value(2))
                 self.indicator += 4
             elif opcode == '03':
-                self.codes[self.codes[self.indicator + 1]] = self.input_queue.get()
+                self.add_value(self.get_value(1, True), self.input_queue.get())
                 self.indicator += 2
             elif opcode == '04':
                 self.output = self.get_value(1)
@@ -81,15 +80,15 @@ class Comp(threading.Thread):
                     self.indicator += 3
             elif opcode == '07':
                 if self.get_value(1) < self.get_value(2):
-                    self.add_value(self.codes[self.indicator + 3], 1)
+                    self.add_value(self.get_value(3, True), 1)
                 else:
-                    self.add_value(self.codes[self.indicator + 3], 0)
+                    self.add_value(self.get_value(3, True), 0)
                 self.indicator += 4
             elif opcode == '08':
                 if self.get_value(1) == self.get_value(2):
-                    self.add_value(self.codes[self.indicator + 3], 1)
+                    self.add_value(self.get_value(3, True), 1)
                 else:
-                    self.add_value(self.codes[self.indicator + 3], 0)
+                    self.add_value(self.get_value(3, True), 0)
                 self.indicator += 4
             elif opcode == '09':
                 self.relative_base += self.get_value(1)
