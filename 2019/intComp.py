@@ -3,6 +3,13 @@ import threading
 import queue
 
 
+def get_codes(day):
+    print("init codes day " + day)
+    with open('inputs/day' + day + '.txt') as f:
+        instruction = f.read()
+    return list(map(int, instruction.split(",")))
+
+
 class Comp(threading.Thread):
     indicator = 0
     output = 0

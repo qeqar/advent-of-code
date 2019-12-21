@@ -4,10 +4,8 @@ import queue
 import intComp
 
 if __name__ == "__main__":
-    with open('inputs/day07.txt') as f:
-        instruction = f.read()
+    codes = intComp.get_codes("07")
 
-    codes = list(map(int, instruction.split(",")))
     max_phase = ""
     max_output = 0
 

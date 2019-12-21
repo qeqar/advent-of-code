@@ -3,9 +3,7 @@ import queue
 import intComp
 
 if __name__ == "__main__":
-    with open('inputs/day09.txt') as f:
-        instruction = f.read()
-    codes = list(map(int, instruction.split(",")))
+    codes = intComp.get_codes("09")
 
     part = 2
     inQueue = queue.Queue()
