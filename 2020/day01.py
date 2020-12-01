@@ -11,6 +11,7 @@ for first in lines:
             if int(first) + int(second) == 2020:
                 print(int(first) * int(second))
 
+
 for first in lines:
     first.strip()
     for second in lines:
