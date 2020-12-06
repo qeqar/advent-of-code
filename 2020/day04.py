@@ -1,4 +1,4 @@
-#!/busr/bin/env python
+#!/usr/bin/env python
 
 import re
 
@@ -35,7 +35,7 @@ class Ident:
             elif ident_value[-2:] == "in" and 59 <= int(ident_value[:-2]) <= 76:
                 return True
         elif ident_entry == "hcl":
-            if ident_value.startswith('#') and re.match('[0-9a-f]{6}', ident_value[1:]):
+            if re.match('#[0-9a-f]{6}', ident_value):
                 return True
         elif ident_entry == "ecl":
             if ident_value in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
@@ -92,6 +92,7 @@ for passport in passports:
     if passport.byr is not None and passport.iyr is not None and passport.eyr is not None and passport.hgt is not None \
             and passport.hcl is not None and passport.ecl is not None and passport.pid is not None:
         valid += 1
+    else:
+        passport.show()
 
-print("Part1 valid " + str(valid) + " out of " + str(len(passports)))
-
+print("Valid " + str(valid) + " out of " + str(len(passports)))
