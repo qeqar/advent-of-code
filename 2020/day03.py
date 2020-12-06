@@ -4,8 +4,8 @@ with open('inputs/day03.txt') as f:
     lines = f.readlines()
 
 slops = ((1, 1), (3, 1), (5, 1), (7, 1), (1, 2))
-
 mtrees = []
+
 for slope in slops:
     right = slope[0]
     down = slope[1]
