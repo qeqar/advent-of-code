@@ -9,12 +9,12 @@ yes_count = 0
 yes_count2 = 0
 group = ""
 group_count = 0
+
 for line in lines:
     if line == "":
         yes_count += len(set(group))
         group_result = collections.Counter(group)
         for r in group_result.values():
-            print(r)
             if r == group_count:
                 yes_count2 += 1
         group = ""
@@ -23,5 +23,5 @@ for line in lines:
         group += line
         group_count += 1
 
-print(yes_count)
-print(yes_count2)
+print("part1 " + str(yes_count))
+print("part2 " + str(yes_count2))
