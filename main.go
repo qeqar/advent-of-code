@@ -3,8 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/qeqar/advent-of-code/pkg/aoc"
+	// import year folder to register all created challenges of that year
 	_ "github.com/qeqar/advent-of-code/pkg/challenges/2020"
 )
 
@@ -17,12 +19,15 @@ func main() {
 
 	factory := aoc.GetAOCFactory()
 	aocChallenge := factory.Get(*year, *day, *part)
+	if aocChallenge == nil {
+		fmt.Printf("Challenge %s %s %s not jet coded\n", *year, *day, *part)
+		os.Exit(1)
+	}
 
-	fmt.Println(factory.List())
-	fmt.Printf("Executing: %s", aocChallenge)
+	fmt.Printf("Executing challenge: %s\n", aocChallenge)
 
 	err := aocChallenge.Run()
 	if err != nil {
-		fmt.Printf("Failed: %v", err)
+		fmt.Printf("Failed: %v\n", err)
 	}
 }

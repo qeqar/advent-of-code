@@ -1,7 +1,5 @@
 package aoc
 
-import "fmt"
-
 type AOCFactory struct {
 	factory map[string]AdventOfCodeChallenge
 }
@@ -13,7 +11,6 @@ func NewAOCFactory() *AOCFactory {
 }
 
 func (f *AOCFactory) Register(year, day, part string, challenge AdventOfCodeChallenge) {
-	fmt.Printf("Debug: Adding (%s, %s, %s): %s\n", year, day, part, challenge)
 	f.factory[year+day+part] = challenge
 }
 
