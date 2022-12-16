@@ -8,6 +8,7 @@ import (
 	"github.com/qeqar/advent-of-code/pkg/aoc"
 	// import year folder to register all created challenges of that year
 	_ "github.com/qeqar/advent-of-code/pkg/challenges/2020"
+	_ "github.com/qeqar/advent-of-code/pkg/challenges/2022"
 )
 
 func main() {
